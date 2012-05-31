@@ -1,0 +1,11 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=4089
+
+The script is based on "css3" and the official css syntax file
+
+original "css3" : http://www.vim.org/scripts/script.php?script_id=3042
+
+Added more CSS3 properties,attr,tagname etc...  Fix some problems of the original script. And prefix like -moz-, -webkit-  to the part of the script, and more 
+
+Screenshots: 
+http://imgur.com/a/kuQ7e
+
