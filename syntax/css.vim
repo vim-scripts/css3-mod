@@ -1,8 +1,9 @@
 " Vim syntax file
 " Language:	CSS 3
-" Maintainer: lepture <sopheryoung@gmail.com> , Claudio Fleiner <claudio@fleiner.com>
+" Original Author: lepture <sopheryoung@gmail.com> , 
+" Claudio Fleiner <claudio@fleiner.com>
 " Modify By: fremff <claffar@hotmail.com>
-" Last Change:	Jun 1, 2012
+" Last Change:	Jun 2, 2012
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -66,7 +67,7 @@ syn match cssUnicodeRange contained "U+[0-9A-Fa-f?]\+"
 syn match cssUnicodeRange contained "U+\x\+-\x\+"
 
 syn keyword cssColor contained aqua black blue fuchsia gray green lime maroon navy olive purple red silver teal yellow
-" FIXME: These are actually case-insentivie too, but (a) specs recommend using
+" FIXME: These are actually case-insensitive too, but (a) specs recommend using
 " mixed-case (b) it's hard to highlight the word `Background' correctly in
 " all situations
 syn case match
@@ -194,6 +195,7 @@ syn region cssStringQ start=+'+ skip=+\\\\\|\\'+ end=+'+ contains=cssUnicodeEsca
 syn match cssClassName "\.[A-Za-z][A-Za-z0-9_-]\+"
 
 
+
 " HTML 5 tags
 syn keyword cssTagName article aside audio bb canvas command datagrid
 syn keyword cssTagName datalist details dialog figure footer
@@ -202,7 +204,7 @@ syn keyword cssTagName progress time ruby rt rp section time video
 
 " HTML 5 Attribute
 syn keyword cssCommonAttr contained contenteditable contextmenu draggable item
-syn keyword cssCommonAttr contained itemprop list subject spellcheck
+syn keyword cssCommonAttr contained itemprop list subject spellcheck dropzone 
 " User-interface
 syn match cssUIProp contained "\<nav-\(index\|up\|right\|down\|left\)\>\(:\)\@="
 syn keyword cssUIProp contained resize outline
@@ -220,25 +222,34 @@ syn match cssTextProp contained "\<break-all\>\(:\)\@="
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)border-\(image\|radius\)\>\(:\)\@="
 syn match cssBoxProp contained "\<border-\(bottom\|top\)-\(left\|right\)-radius\>\(:\)\@="
 
-"syn match cssTagName "@charset\>"
-"syn match cssTagName "@\(-\(moz\|webkit\|ms\|o\)-\|\)keyframes\>" nextgroup=cssDefinition
+
+
+syn keyword cssTagName source figcaption bdi wbr summary track 
+
 syn match cssTextProp contained "\<text-\(justify\|\outline\|shadow\|overflow\|warp\|indent\)\>\(:\)\@=" 
 syn match cssRenderProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)transform\(-\(origin\|style\)\)\=\>\(:\)\@="
 syn match cssTextProp contained "\<word-\(break\|\wrap\)\>\(:\)\@="
 syn match cssRenderProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)transition\(-\(delay\|duration\|property\|timing-function\)\)\=\>\(:\)\@="
+
 syn match cssRenderAttr contained "\<linear\>"
 syn match cssRenderAttr contained "\<ease\(-\(in-out\|out\|in\)\)\=\>"
 syn match cssRenderAttr contained "\<cubic-bezier\>"
 syn match cssRenderAttr contained "\<infinite\>"
 syn match cssCommonAttr contained "\(-\(moz\|webkit\|ms\|o\)-\|\)initial\>"
+syn keyword cssBoxAttr contained content-box padding-box border-box manual
+syn keyword cssBoxAttr contained horizontal vertical inline-axis block-axis 
+syn keyword cssBoxAttr contained start end stretch reverse 
+
 syn match cssBoxProp contained "\<marquee\(-\(direction\|play-count\|speed\|style\)\)\=\>\(:\)\@="
 syn match cssBoxProp contained "\<overflow-\(x\|y\|style\)\>\(:\)\@="
 syn match cssBoxProp contained "\<perspective\(-origin\)\=\>\(:\)\@="
 syn match cssRenderProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)animation\(-\(fill-mode\|direction\|name\|duration\|timing-function\|delay\|iteration-cout\|play-state\)\)\=\>\(:\)\@="
 syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)appearance\>\(:\)\@="
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)box-\(align\|direction\|flex\|ordinal-group\|orient\|pack\|shadow\|sizing\)\>\(:\)\@="
+
 syn match cssPseudoClassId contained "\<\(last\|only\|nth\|nth-last\)-child\>"
 syn match cssPseudoClassId contained "\<\(first\|last\|only\|nth\|nth-last\)-of-type\>"
+
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)border-\(\(top\|right\|bottom\|left\)-colors\)\>\(:\)\@="
 syn match cssBoxProp contained "\<border-image-\(source\|width\|repeat\|outset\|slice\)\>\(:\)\@="
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)\(\(margin\|padding\|border\)-\(end\|start\)\)\>\(:\)\@="
@@ -260,10 +271,14 @@ syn match cssGeneratedContentProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)backg
 syn match cssGeneratedContentProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)image-region\>\(:\)\@="
 syn match cssBoxProp contained "\<mask\>\(:\)\@="
 syn match cssBoxProp contained "\<clip-path\>\(:\)\@="
+syn match cssUIProp contained "\<pointer-events\>\(:\)\@="
+
 syn match cssBracketsValue "(\@<=\d\+\()\)\@="
+
 syn region cssColor contained start="\<\(rgb\|rgba\|hsl\|hsla\)\s*("ms=e+1 end=")"me=s-1 oneline
 "syn region cssColor contained matchgroup=cssFunctionName start="\<\(rgb\|rgba\|hsl\|hsla\)\s*(" end=")" oneline keepend
 "syn region cssFunction contained matchgroup=cssFunctionName start="\<\(linear\|radial\)-gradient\s*(" end=")" oneline keepend
+"syn region cssFunction contained matchgroup=cssFunctionName start="\<-moz-image-rect\s*(" end=")" oneline keepend
 "syn region cssFunction contained matchgroup=cssFunctionName start="\<\(matrix\(3d\)\=\|scale\(3d\|X\|Y|\Z\)\=\|translate\(3d\|X\|Y|\Z\)\=\|skew\(X\|Y\)\=\|rotate\(3d\|X\|Y|\Z\)\=\)\s*(" end=")" oneline keepend
 
 
