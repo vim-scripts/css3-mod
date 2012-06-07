@@ -3,7 +3,7 @@
 " Original Author: lepture <sopheryoung@gmail.com> , 
 " Claudio Fleiner <claudio@fleiner.com>
 " Modify By: fremff <claffar@hotmail.com>
-" Last Change:	Jun 2, 2012
+" Last Change:	Jun 7, 2012
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -88,7 +88,7 @@ syn keyword cssCommonAttr contained top bottom
 syn keyword cssCommonAttr contained medium normal
 
 syn match cssFontProp contained "\<font\(-\(family\|style\|variant\|weight\|size\(-adjust\)\=\|stretch\)\)\=\>\(:\)\@="
-syn match cssFontAttr contained "\<\(sans-\)\=\<serif\>"
+syn match cssFontAttr contained "\<\(sans-\)\=serif\>"
 syn match cssFontAttr contained "\<small\(-\(caps\|caption\)\)\=\>"
 syn match cssFontAttr contained "\<x\{1,2\}-\(large\|small\)\>"
 syn match cssFontAttr contained "\<message-box\>"
@@ -98,7 +98,7 @@ syn keyword cssFontAttr contained cursive fantasy monospace italic oblique
 syn keyword cssFontAttr contained bold bolder lighter larger smaller
 syn keyword cssFontAttr contained icon menu
 syn match cssFontAttr contained "\<caption\>"
-syn keyword cssFontAttr contained large smaller larger
+syn keyword cssFontAttr contained large
 syn keyword cssFontAttr contained narrower wider
 
 syn keyword cssColorProp contained color
@@ -226,19 +226,21 @@ syn match cssBoxProp contained "\<border-\(bottom\|top\)-\(left\|right\)-radius\
 
 syn keyword cssTagName source figcaption bdi wbr summary track 
 
-syn match cssTextProp contained "\<text-\(justify\|\outline\|shadow\|overflow\|warp\|indent\)\>\(:\)\@=" 
+syn match cssTextProp contained "\<text-\(justify\|\outline\|overflow\|warp\|indent\)\>\(:\)\@=" 
 syn match cssRenderProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)transform\(-\(origin\|style\)\)\=\>\(:\)\@="
 syn match cssTextProp contained "\<word-\(break\|\wrap\)\>\(:\)\@="
 syn match cssRenderProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)transition\(-\(delay\|duration\|property\|timing-function\)\)\=\>\(:\)\@="
 
 syn match cssRenderAttr contained "\<linear\>"
 syn match cssRenderAttr contained "\<ease\(-\(in-out\|out\|in\)\)\=\>"
-syn match cssRenderAttr contained "\<cubic-bezier\>"
 syn match cssRenderAttr contained "\<infinite\>"
 syn match cssCommonAttr contained "\(-\(moz\|webkit\|ms\|o\)-\|\)initial\>"
 syn keyword cssBoxAttr contained content-box padding-box border-box manual
-syn keyword cssBoxAttr contained horizontal vertical inline-axis block-axis 
-syn keyword cssBoxAttr contained start end stretch reverse 
+syn keyword cssBoxAttr contained balance round space horizontal vertical
+syn keyword cssBoxAttr contained inline-axis block-axis 
+syn keyword cssBoxAttr contained start end stretch reverse
+syn keyword cssTextAttr contained hanging each-line
+syn keyword cssGeneratedContentAttr contained bounding-box each-box
 
 syn match cssBoxProp contained "\<marquee\(-\(direction\|play-count\|speed\|style\)\)\=\>\(:\)\@="
 syn match cssBoxProp contained "\<overflow-\(x\|y\|style\)\>\(:\)\@="
@@ -247,14 +249,18 @@ syn match cssRenderProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)animation\(-\(f
 syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)appearance\>\(:\)\@="
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)box-\(align\|direction\|flex\|ordinal-group\|orient\|pack\|shadow\|sizing\)\>\(:\)\@="
 
-syn match cssPseudoClassId contained "\<\(last\|only\|nth\|nth-last\)-child\>"
-syn match cssPseudoClassId contained "\<\(first\|last\|only\|nth\|nth-last\)-of-type\>"
+syn match cssPseudoClassId contained "\<\(last\|only\)-child\>"
+syn match cssPseudoClassId contained "\<\(first\|last\|only\)-of-type\>"
+syn match cssPseudoClassId contained "\<\(nth\|nth-last\)-\(of-type\|child\)\>" nextgroup=cssBracketsValue
+syn keyword cssPseudoClassId contained root empty target enabled disabled checked selection
+syn match cssPseudoClassId contained "\(-\(moz\|webkit\|ms\|o\)-\|\)any\>"
+syn region cssPseudoClassNot matchgroup=cssPseudoClassId start=":not(" end=")" oneline contains=cssAttributeSelector,cssSelectorOp2,cssStringQQ
 
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)border-\(\(top\|right\|bottom\|left\)-colors\)\>\(:\)\@="
 syn match cssBoxProp contained "\<border-image-\(source\|width\|repeat\|outset\|slice\)\>\(:\)\@="
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)\(\(margin\|padding\|border\)-\(end\|start\)\)\>\(:\)\@="
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)perspective\(-\(origin\)\)\=\>\(:\)\@="
-syn match cssTextProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)text-align-last\>\(:\)\@="
+syn match cssTextProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)text-\(align-last\|blink\)\>\(:\)\@="
 syn match cssTextProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)text-decoration-\(line\|color\|style\)\>\(:\)\@="
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)hyphens\>\(:\)\@="
 syn match cssFontProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)font-feature-settings\>\(:\)\@="
@@ -264,7 +270,6 @@ syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)binding\>\(:\)\@="
 syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)orient\>\(:\)\@="
 syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)outline-radius\(-\(bottomleft\|bottomright\|topleft\|topright\)\)\=\>\(:\)\@="
 syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)outline\(-\(width\|style\|offset\|color\)\)\=\>\(:\)\@="
-syn match cssTextProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)text-blink\>\(:\)\@="
 syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)user-\(focus\|input\|modify\|Select\)\>\(:\)\@="
 syn match cssRenderProp contained "\<filter\>\(:\)\@="
 syn match cssGeneratedContentProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)background\(-\(origin\|clip\|size\)\)\=\>\(:\)\@="
@@ -273,10 +278,10 @@ syn match cssBoxProp contained "\<mask\>\(:\)\@="
 syn match cssBoxProp contained "\<clip-path\>\(:\)\@="
 syn match cssUIProp contained "\<pointer-events\>\(:\)\@="
 
-syn match cssBracketsValue "(\@<=\d\+\()\)\@="
+syn match cssBracketsValue contained "(\@<=\d\+\()\)\@="
 
-syn region cssColor contained start="\<\(rgb\|rgba\|hsl\|hsla\)\s*("ms=e+1 end=")"me=s-1 oneline
-"syn region cssColor contained matchgroup=cssFunctionName start="\<\(rgb\|rgba\|hsl\|hsla\)\s*(" end=")" oneline keepend
+"syn region cssColor contained start="\<\(rgb\|rgba\|hsl\|hsla\)\s*("ms=e+1 end=")"me=s-1 oneline
+syn region cssColor contained matchgroup=cssFunctionName start="\<\(rgb\|rgba\|hsl\|hsla\)\s*(" end=")" oneline keepend
 "syn region cssFunction contained matchgroup=cssFunctionName start="\<\(linear\|radial\)-gradient\s*(" end=")" oneline keepend
 "syn region cssFunction contained matchgroup=cssFunctionName start="\<-moz-image-rect\s*(" end=")" oneline keepend
 "syn region cssFunction contained matchgroup=cssFunctionName start="\<\(matrix\(3d\)\=\|scale\(3d\|X\|Y|\Z\)\=\|translate\(3d\|X\|Y|\Z\)\=\|skew\(X\|Y\)\=\|rotate\(3d\|X\|Y|\Z\)\=\)\s*(" end=")" oneline keepend
@@ -357,7 +362,6 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssBracketsValue Number
   delcommand HiLink
 endif
-
 
 let b:current_syntax = "css"
 
