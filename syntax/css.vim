@@ -3,7 +3,7 @@
 " Original Author: lepture <sopheryoung@gmail.com> , 
 " Claudio Fleiner <claudio@fleiner.com>
 " Modify By: fremff <claffar@hotmail.com>
-" Last Change:	Oct 21, 2012
+" Last Change:	Oct 30, 2012
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -52,10 +52,11 @@ syn match cssIdentifier "#[A-Za-z_@][A-Za-z0-9_@-]*"
 endtry
 
 
+"   Conditional Group Rule:
 syn match cssMedia "@media\>" nextgroup=cssMediaType,cssMediaNot,cssMediaBraces skipwhite skipnl
 syn keyword cssMediaType contained screen print  aural  braile  embosed handheld projection ty tv all nextgroup=cssMediaComma,cssMediaBlock,cssMediaAnd skipwhite skipnl
 syn match cssMediaComma contained "," nextgroup=cssMediaType skipwhite skipnl
-syn region cssMediaBlock transparent matchgroup=cssBraces start='{' end='}' contains=cssTagName,cssError,cssComment,cssDefinition,cssURL,cssUnicodeEscape,cssIdentifier,cssAttributeSelector,cssPseudoClassId,cssPseudoClassNot,cssPseudoClassLang,cssPseudoElement,cssSelectorOp,cssClassName
+syn region cssMediaBlock transparent matchgroup=cssBraces start='{' end='}' contains=cssDocument,cssTagName,cssError,cssComment,cssDefinition,cssURL,cssUnicodeEscape,cssIdentifier,cssAttributeSelector,cssPseudoClassId,cssPseudoClassNot,cssPseudoClassLang,cssPseudoElement,cssSelectorOp,cssClassName
 syn match cssMediaAnd "\<and\>" contained nextgroup=cssMediaBraces skipwhite skipnl
 syn match cssMediaNot "\<not\>" contained nextgroup=cssMediaType,cssMediaBraces skipwhite skipnl
 syn region cssMediaBraces contained start='(' end=')' contains=cssMediaNot,cssMediaAnd,cssMediaType nextgroup=cssMediaComma,cssMediaAnd,cssMediaBlock skipwhite skipnl
@@ -133,7 +134,7 @@ syn match cssBoxProp contained "\<\(margin\|padding\|border\)\(-\(top\|right\|bo
 syn match cssBoxProp contained "\<border-\(\(\(top\|right\|bottom\|left\)-\)\=\(width\|color\|style\)\)\=\>\(\s*:\)\@="
 syn match cssBoxProp contained "\<\(width\|z-index\)\>\(\s*:\)\@="
 syn match cssBoxProp contained "\<\(min\|max\)-\(width\|height\)\>\(\s*:\)\@="
-syn keyword cssBoxProp contained width height float clear overflow clip visibility
+syn match cssBoxProp contained "\<\(width\|height\|float\|clear\|overflow\|clip\|visibility\)\>\(\s*:\)\@="
 syn keyword cssBoxAttr contained thin thick both
 syn keyword cssBoxAttr contained dotted dashed solid double groove ridge inset outset
 syn keyword cssBoxAttr contained hidden visible scroll collapse
@@ -227,7 +228,7 @@ syn keyword cssBoxAttr contained content-box padding-box border-box manual
 syn keyword cssBoxAttr contained balance round space horizontal vertical
 syn keyword cssBoxAttr contained inline-axis block-axis
 syn keyword cssBoxAttr contained start end stretch reverse ignore stretch-to-fit
-syn keyword cssTextAttr contained hanging each-line
+syn keyword cssTextAttr contained hanging each-line ellipsis clip
 syn keyword cssGeneratedContentAttr contained bounding-box each-box
 syn match cssTableAttr contained "\<\(flex\|grid\|inline-\(block\|table\|flex\|grid\)\|list-item\|run-in\)\>"
 
@@ -270,7 +271,8 @@ syn match cssError contained "{@<>"
 syn region cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssError,cssStringQ,cssStringQQ,cssFunction,cssUnicodeEscape
 syn match cssBraceError "}"
 
-" At-Rules
+" At-rule Groups
+"   Conditional Group Rule:
 syn match cssDocument "@\(-moz-\)\=document\>" nextgroup=cssURL,cssURLPrefix,cssDomain,cssRegexp skipwhite skipnl 
 syn region cssURLPrefix contained matchgroup=cssFunctionName start="\<url-prefix\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
 syn region cssDomain contained matchgroup=cssFunctionName start="\<domain\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
@@ -278,13 +280,19 @@ syn region cssRegexp contained matchgroup=cssFunctionName start="\<regexp\s*(" e
 syn match cssDocumentComma  contained "," nextgroup=cssURL,cssURLPrefix,cssDomain,cssRegexp skipwhite skipnl
 syn region cssURL contained matchgroup=cssFunctionName start="\<url\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
 syn region cssDocumentBlock contained transparent matchgroup=cssBraces start='{' end='}' contains=cssDefinition,cssPseudoClassId,cssPseudoClassLang,cssPseudoClassNot,cssPseudoElement,cssComment,cssError,cssAttributeSelector,cssSelectorOp,cssFunction,cssUnicodeEscape,cssTagName,cssClassName,cssIdentifier,cssMedia,cssFontDescriptor
-syn match cssRegexpError contained +(\@<=\w.*\()\)\@=\|(\@<=['"]\w[^'"]*\()\)\@=\|\\.+
+syn match cssRegexpError contained +(\@<=[^'"].*\()\)\@=\|(\@<=['][^']*\()\)\@=\|(\@<=["][^"]*\()\)\@=\|\\\@<!\\[^\\]+
 
 syn region cssNameSpace start="@namespace" end=";" contains=cssStringQ*,cssURL,cssNameSpaceName
 syn match cssNameSpaceName contained "\s\<[a-zA-Z]\+\>\s"
 
 syn region cssCharset start="@charset" end=";" contains=cssCharsetString
-syn match cssCharsetString contained +"[a-zA-z][a-zA-Z0-9\-]*"+
+syn match cssCharsetString contained +"[a-zA-Z][a-zA-Z0-9\-]*"+
+
+" At-rule Group of Testing
+syn match cssKeyFrame "@\(-webkit-\)\=\(-\(moz\|o\)-\)\@<!keyframes\>" nextgroup=cssKeyFrameID skipwhite skipnl
+syn match cssKeyFrameID contained  "\<[a-zA-Z]\+\>" nextgroup=cssKeyFrameBlock skipwhite skipnl
+syn region cssKeyFrameBlock contained matchgroup=cssBraces start="{" end="}" contains=cssKeyFrameTime,cssDefinition
+syn match cssKeyFrameTime contained "\<\(from\|to\|\d\+%\)\>" nextgroup=cssDefinition skipwhite skipnl
 
 
 syn match cssPseudoClass ":\(\S\({\|,\)\@!\)*" contains=cssPseudoClassId,cssPseudoElement,cssUnicodeEscape,cssClassName,cssSelectorOp2,cssSelectorOp,cssStringQQ,cssTagName,cssBracketsValue
