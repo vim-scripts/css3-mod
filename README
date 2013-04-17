@@ -1,11 +1,52 @@
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=4089
 
-The script is based on "css3" and the official css syntax file
+The script is based on the official css syntax file, you can find it  in here :http://fleiner.com/vim/syntax/css.vim
 
-original "css3" : http://www.vim.org/scripts/script.php?script_id=3042
+CSS3 syntax highlighting support. Include many of CSS3 Property,Attribute,Selector, support for the prefix " -moz-,-webkit- ,-o-,-ms- ", and complete the At-rule group, see : https://developer.mozilla.org/en-US/docs/CSS/At-rule . Added beautify CSS file function,  use the :CSSBeautify command.
 
-Added more CSS3 properties,attr,tagname etc...  Fix some problems of the original script. And prefix like -moz-, -webkit-  to the part of the script, and more 
+
+For of the CSSBeautify command :
+
+/* Original */
+
+style
+
+*{ width:680px ;
+background-color:#FFF;
+box-shadow: -1px 1px 3px #DDD;
+padding: 10px
+}
+a:nth-of-type(2n) 
+{
+  background-color:#FFF!important
+}
+.class #id{border-radius:0px!important;}
+
+/* After the command execution */
+
+style
+
+* {
+width: 680px ;
+background-color: #FFF ;
+box-shadow: -1px 1px 3px #DDD ;
+padding: 10px ;
+}
+a:nth-of-type(2n) {
+background-color: #FFF !important;
+}
+.class #id {
+border-radius: 0px !important;
+}
+
 
 Screenshots: 
-http://imgur.com/a/kuQ7e
+http://i.imgur.com/HjD48SP.jpg
+http://i.imgur.com/MBzDyhm.jpg
+http://i.imgur.com/HR2nYl2.jpg
+
+
+
+github:
+https://github.com/fremff/vim-css-syntax
 
