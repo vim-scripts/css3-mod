@@ -3,8 +3,8 @@
 " Based On: css.vim (from Vim 7.3)
 " Original Author: Claudio Fleiner <claudio@fleiner.com>
 " Maintainer: fremff <sorathone@gmail.com>
-" Last Change: Apr 20 2013
-" Version: 1.2.5
+" Last Change: 2013-05-08
+" Version: 1.3.0
 
 
 " For version 5.x: Clear all syntax items
@@ -44,7 +44,7 @@ syn keyword cssTagName main mark menu meter nav output progress rp rt ruby
 syn keyword cssTagName section source summary time track video wbr
 
 syn match   cssSelectorOp "[+>.]"
-"  Added css3 Attribute selectors '^=, $=, *='
+"  Included the css3 Attribute selectors: '^=, $=, *='
 syn match   cssSelectorOp2 "[~|^$*]\?=" contained
 syn region  cssAttributeSelector matchgroup=cssSelectorOp start="\[" end="]" transparent contains=cssUnicodeEscape,cssSelectorOp2,cssStringQ,cssStringQQ
 
@@ -56,7 +56,7 @@ endtry
 
 " Values
 
-"  Added length and resolution and angle units 'ch, rem, vw, vh, vmin, vmax,
+"  Included the length and resolution and angle units: 'ch, rem, vw, vh, vmin, vmax,
 "  dpi, dpcm, dppx, turn'
 syn match   cssValueNumber contained "[-+]\=\d\+\%(\.\d\+\)\=\|\.\d\+" display
 syn match   cssValuePercentage contained "\%(\d\+\%(\.\d\+\)\=\|\.\d\+\)%" display
@@ -64,25 +64,23 @@ syn match   cssValueLength contained "\%([-+]\=\d\+\%(\.\d\+\)\=\|\.\d\+\)\(mm\|
 syn match   cssValueAngle contained "\%([-+]\=\d\+\%(\.\d\+\)\=\|\.\d\+\)\(deg\|g\=rad\|turn\)\>" display
 syn match   cssValueTime contained "\%([-+]\=\d\+\%(\.\d\+\)\=\|\.\d\+\)\(ms\|s\)\>" display
 syn match   cssValueFrequency contained "\%([-+]\=\d\+\%(\.\d\+\)\=\|\.\d\+\)\(Hz\|kHz\)\>" display
-syn match   cssValueResolution contained "\%([1-9]\d*\%(\.\d\+\)\=\|\.\d\+\)\(dpi\|dpcm\|dppx\)\>" display
+syn match   cssValueResolution contained "\%(\d\+\%(\.\d\+\)\=\|\.\d\+\)\(dpi\|dpcm\|dppx\)\>" display
 
 " Colors
 
 "  Standard color names
 syn keyword cssColor contained aqua black blue fuchsia gray green lime maroon navy olive orange purple red silver teal white yellow
-
+"  Extended color keywords (That also referred as the X11 colors, the SVG colors)
 syn keyword cssColor contained aliceblue antiquewhite aquamarine azure beige bisque blanchedalmond blueviolet brown burlywood
 syn keyword cssColor contained cadetblue chartreuse chocolate coral cornflowerblue cornsilk crimson cyan
 syn keyword cssColor contained darkblue darkcyan darkgoldenrod darkgray darkgreen darkgrey darkkhaki darkmagenta darkolivegreen darkorange darkorchid darkred darksalmon darkseagreen darkslateblue darkslategray darkslategrey darkturquoise darkviolet deeppink deepskyblue dimgray dimgrey dodgerblue
-syn keyword cssColor contained firebrick floralwhite forestgreen gainsboro ghostwhite gold goldenrod greenyellow grey
-syn keyword cssColor contained honeydew hotpink indianred indigo ivory khaki lavender lavenderblush lawngreen lemonchiffon lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightgrey lightpink lightsalmon lightseagreen lightskyblue lightslategray lightslategrey lightsteelblue lightyellow limegreen linen
+syn keyword cssColor contained firebrick floralwhite forestgreen gainsboro ghostwhite gold goldenrod greenyellow grey honeydew hotpink indianred indigo ivory khaki
+syn keyword cssColor contained lavender lavenderblush lawngreen lemonchiffon lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightgrey lightpink lightsalmon lightseagreen lightskyblue lightslategray lightslategrey lightsteelblue lightyellow limegreen linen
 syn keyword cssColor contained magenta mediumaquamarine mediumblue mediumorchid mediumpurple mediumseagreen mediumslateblue mediumspringgreen mediumturquoise mediumvioletred midnightblue mintcream mistyrose moccasin
 syn keyword cssColor contained navajowhite oldlace olivedrab orangered orchid palegoldenrod palegreen paleturquoise palevioletred papayawhip peachpuff peru pink plum powderblue
 syn keyword cssColor contained rosybrown royalblue saddlebrown salmon sandybrown seagreen seashell sienna skyblue slateblue slategray slategrey snow springgreen steelblue tan thistle tomato turquoise violet wheat whitesmoke yellowgreen
-syn case match
-"  System Colors
-syn keyword cssColor contained ActiveBorder ActiveCaption AppWorkspace ButtonFace ButtonHighlight ButtonShadow ButtonText CaptionText GrayText Highlight HighlightText InactiveBorder InactiveCaption InactiveCaptionText InfoBackground InfoText Menu MenuText Scrollbar ThreeDDarkShadow ThreeDFace ThreeDHighlight ThreeDLightShadow ThreeDShadow Window WindowFrame WindowText Background
 
+syn case match
 syn match   cssColor contained "\<currentColor\>" display
 syn case ignore
 syn match   cssColor contained "\<transparent\>" display
@@ -91,36 +89,35 @@ syn match   cssColor contained "#[0-9A-Fa-f]\{6\}\>" display
 
 " Functions
 
-syn region  cssURL contained matchgroup=cssFunctionName start="\<url\s*(" end=")" oneline keepend
-syn region  cssFunction contained matchgroup=cssFunctionName start="\<\(counter\|rect\)\s*(" end=")" oneline keepend
-syn region  cssFunction contained matchgroup=cssFunctionName start="\<\(attr\|counters\)\s*(" end=")" oneline keepend
-"  Added CSS color 'rgba(), hsl(), hsla()' functional notation
-syn region  cssColor contained matchgroup=cssFunctionName start="\<\(rgba\=\|hsla\=\)\s*(" end=")" oneline keepend
-"  CSS gradients
-syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\(-\(webkit\|o\)-\|\)\(-\(moz\|ms\)-\)\@<!\(repeating-\)\=\(linear\|radial\)-gradient\s*(" end=")" oneline
+syn region  cssURL contained matchgroup=cssFunctionName start="\<url\s*(" end=")" oneline keepend display
+syn region  cssFunction contained matchgroup=cssFunctionName start="\<\(counter\|rect\)\s*(" end=")" oneline keepend display
+syn region  cssFunction contained matchgroup=cssFunctionName start="\<\(attr\|counters\)\s*(" end=")" oneline keepend display
+"  Included 'rgba(), hsl(), hsla()' functional notation
+syn region  cssColor contained matchgroup=cssFunctionName start="\<\(rgba\=\|hsla\=\)\s*(" end=")" oneline keepend display
+"  Gradients
+syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\(-\(webkit\|o\)-\|\(-\(moz\)-\)\@<!\)\(repeating-\)\=\(linear\|radial\)-gradient\s*(" end=")" oneline display
 "  Mozilla Extension of the CSS background-image
-syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\<-moz-image-rect\s*(" end=")" oneline
-"  CSS function calc()
-syn region  cssCalcFunction transparent contained matchgroup=cssFunctionName start="\<calc\s*(" end=")" oneline
-syn match   cssCalcExpressions contained "\%(+\|-\|*\|/\)" display containedin=cssCalcFunction
-syn cluster cssFunctions contains=cssFunction,cssCalcFunction
+syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\<-moz-image-rect\s*(" end=")" oneline display
+"  'calc()' function
+syn region  cssFunction transparent contained matchgroup=cssFunctionName start="\(-\(webkit\)-\|\(-\(moz\)-\)\@<!\)calc\s*(" end=")" contains=cssFunction,cssCalcExpressions,cssValue.* oneline display
+syn match   cssCalcExpressions contained "\%(+\|-\|\*\|\/\)" display
+
 
 syn match   cssImportant contained "!\s*important\>" display
 
-" Properties and Attributes
-"  Included prefix support for some property items
+" Properties and Property values
 
 syn keyword cssCommonAttr contained auto none inherit
 syn match   cssCommonAttr contained "\<\(top\|bottom\|left\|right\)\>\(:\)\@!" display
 syn keyword cssCommonAttr contained medium normal
 
-syn match   cssFontProp contained "\<font\(-\(family\|style\|variant\|weight\|size\(-adjust\)\=\|stretch\)\)\=\>\(\s*:\)\@=" display
-syn match   cssFontAttr contained "\<\(sans-\)\=serif\>" display
-syn match   cssFontAttr contained "\<small\(-\(caps\|caption\)\)\=\>" display
-syn match   cssFontAttr contained "\<x\{1,2\}-\(large\|small\)\>" display
+syn match   cssFontProp contained "\<font\%(-\%(family\|style\|variant\|weight\|size\%(-adjust\)\=\|stretch\)\)\=\>\(\s*:\)\@=" display
+syn match   cssFontAttr contained "\<\%(sans-\)\=serif\>" display
+syn match   cssFontAttr contained "\<small\%(-\%(caps\|caption\)\)\=\>" display
+syn match   cssFontAttr contained "\<x\{1,2\}-\%(large\|small\)\>" display
 syn match   cssFontAttr contained "\<message-box\>" display
 syn match   cssFontAttr contained "\<status-bar\>" display
-syn match   cssFontAttr contained "\<\(\(ultra\|extra\|semi\|status-bar\)-\)\=\(condensed\|expanded\)\>" display
+syn match   cssFontAttr contained "\<\%(\%(ultra\|extra\|semi\)-\)\=\(condensed\|expanded\)\>" display
 syn keyword cssFontAttr contained cursive fantasy monospace italic oblique
 syn keyword cssFontAttr contained bold bolder lighter larger smaller
 syn keyword cssFontAttr contained icon menu
@@ -130,44 +127,40 @@ syn keyword cssFontAttr contained narrower wider
 
 syn match   cssColorProp contained "\<color\>\(\s*:\)\@=" display
 syn keyword cssColorAttr contained center scroll fixed
-syn match   cssColorAttr contained "\<repeat\(-[xy]\)\=\>" display
+syn match   cssColorAttr contained "\<repeat\%(-[xy]\)\=\>" display
 syn match   cssColorAttr contained "\<no-repeat\>" display
 
-syn match   cssTextProp "\<\(\(word\|letter\)-spacing\|text\(-\(decoration\|transform\|align\|index\|shadow\|rendering\)\)\=\|vertical-align\|unicode-bidi\|line-height\)\>\(\s*:\)\@=" display
+syn match   cssTextProp "\<\(\%(word\|letter\)-spacing\|text\%(-\%(decoration\|transform\|align\|index\|shadow\|rendering\)\)\=\|vertical-align\|unicode-bidi\|line-height\)\>\(\s*:\)\@=" display
 syn match   cssTextAttr contained "\<line-through\>" display
-syn match   cssTextAttr contained "\<text-indent\>" display
-syn match   cssTextAttr contained "\<\(text-\)\=\(top\|bottom\)\>" display
 syn keyword cssTextAttr contained underline overline blink sub super middle
 syn keyword cssTextAttr contained capitalize uppercase lowercase full-width
 syn keyword cssTextAttr contained center justify baseline text-top text-bottom
 
-syn match   cssBoxProp contained "\<\(margin\|padding\|border\)\(-\(top\|right\|bottom\|left\)\)\=\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<border-\(\(\(top\|right\|bottom\|left\)-\)\=\(width\|color\|style\)\)\=\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<\(width\|z-index\)\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<\(min\|max\)-\(width\|height\)\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<\(margin\|padding\|border\)\%(-\%(top\|right\|bottom\|left\)\)\=\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<border-\%(\%(\%(top\|right\|bottom\|left\)-\)\=\%(width\|color\|style\)\)\=\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<z-index\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<\%(min\|max\)-\%(width\|height\)\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<\(width\|height\|float\|clear\|overflow\%(-[xy]\)\=\|clip\|visibility\)\>\(\s*:\)\@=" display
 syn keyword cssBoxAttr contained thin thick both
 syn keyword cssBoxAttr contained dotted dashed solid double groove ridge inset outset
-syn case match
-syn match   cssBoxAttr contained "\<\(all\|collapse\|fill\|hidden\|painted\|scroll\|stroke\|visible\%(Painted\|Fill\|Stroke\)\=\)\>" display
-syn case ignore
+syn keyword cssBoxAttr contained hidden visible scroll collapse
 
 syn match   cssGeneratedContentProp contained "\<\(content\|quotes\)\>\(\s*:\)\@=" display
-syn match   cssGeneratedContentProp contained "\<counter-\(reset\|increment\)\>\(\s*:\)\@=" display
-syn match   cssGeneratedContentProp contained "\<list-style\(-\(type\|position\|image\)\)\=\>\(\s*:\)\@=" display
-syn match   cssGeneratedContentAttr contained "\<\(no-\)\=\(open\|close\)-quote\>" display
-syn match   cssGeneratedContentAttr contained "\<\(\(lower\|upper\)-\(alpha\|latin\|roman\)\|lower-greek\)\>" display
-syn match   cssGeneratedContentAttr contained "\<\(hiragana\|katakana\)\(-iroha\)\=\>" display
-syn match   cssGeneratedContentAttr contained "\<\(decimal\(-leading-zero\)\=\|cjk-ideographic\)\>" display
+syn match   cssGeneratedContentProp contained "\<counter-\%(reset\|increment\)\>\(\s*:\)\@=" display
+syn match   cssGeneratedContentProp contained "\<list-style\%(-\%(type\|position\|image\)\)\=\>\(\s*:\)\@=" display
+syn match   cssGeneratedContentAttr contained "\<\%(no-\)\=\%(open\|close\)-quote\>" display
+syn match   cssGeneratedContentAttr contained "\<\(\%(lower\|upper\)-\%(alpha\|latin\|roman\)\|lower-greek\)\>" display
+syn match   cssGeneratedContentAttr contained "\<\(hiragana\|katakana\)\%(-iroha\)\=\>" display
+syn match   cssGeneratedContentAttr contained "\<\(decimal\%(-leading-zero\)\=\|cjk-ideographic\)\>" display
 syn keyword cssGeneratedContentAttr contained disc circle square hebrew armenian georgian
 syn keyword cssGeneratedContentAttr contained inside outside
 
-syn match   cssPagingProp contained "\<page\(-break-\(before\|after\|inside\)\)\=\>\(\s*:\)\@=" display
+syn match   cssPagingProp contained "\<page\%(-break-\%(before\|after\|inside\)\)\=\>\(\s*:\)\@=" display
 syn match   cssPagingProp contained "\<\(size\|marks\|inside\|orphans\|widows\)\>\(\s*:\)\@=" display
 syn keyword cssPagingAttr contained landscape portrait crop cross always avoid
 
 syn match   cssUIProp contained "\<cursor\>\(\s*:\)\@=" display
-syn match   cssUIAttr contained "\<\(col\|row\|nesw\|nwse\|[ns]\=[ew]\=\)-resize\>" display
+syn match   cssUIAttr contained "\<\%(col\|row\|nesw\|nwse\|[ns]\=[ew]\=\)-resize\>" display
 syn keyword cssUIAttr contained all-scroll alias cell context-menu copy crosshair
 syn keyword cssUIAttr contained default move help no-drop not-allowed pointer progress
 syn keyword cssUIAttr contained text thin thick wait vertical-text
@@ -179,24 +172,23 @@ syn match   cssRenderProp contained "\<\(display\|marker-offset\|unicode-bidi\|w
 syn match   cssRenderProp contained "\<\(position\|direction\)\>\(\s*:\)\@=" display
 syn match   cssRenderProp contained "\<\(top\|bottom\|left\|right\)\>\(\s*:\)\@=" display
 syn keyword cssRenderAttr contained block inline compact
-syn match   cssRenderAttr contained "\<table\(-\(\(header\|footer\)-group\|\(row\|column\)\(-group\)\=\|cell\|caption\|colgroup\)\)\=\>" display
+syn match   cssRenderAttr contained "\<table\%(-\%(\%(header\|footer\)-group\|\%(row\|column\)\%(-group\)\=\|cell\|caption\|colgroup\)\)\=\>" display
 syn keyword cssRenderAttr contained static relative absolute fixed
 syn keyword cssRenderAttr contained ltr rtl embed bidi-override pre nowrap pre-wrap pre-line
-syn match   cssRenderAttr contained "\<bidi-override\>" display
 
 
-syn match   cssAuralProp contained "\<\(pause\|cue\)\(-\(before\|after\)\)\=\>\(\s*:\)\@=" display
-syn match   cssAuralProp contained "\<\(play-during\|speech-rate\|voice-family\|pitch\(-range\)\=\|speak\(-\(punctuation\|numerals\)\)\=\)\>\(\s*:\)\@=" display
+syn match   cssAuralProp contained "\<\(pause\|cue\)\%(-\%(before\|after\)\)\=\>\(\s*:\)\@=" display
+syn match   cssAuralProp contained "\<\(play-during\|speech-rate\|voice-family\|pitch\%(-range\)\=\|speak\%(-\%(punctuation\|numerals\)\)\=\)\>\(\s*:\)\@=" display
 syn match   cssAuralProp contained "\<\(volume\|during\|azimuth\|elevation\|stress\|richness\)\>\(\s*:\)\@=" display
-syn match   cssAuralAttr contained "\<\(x-\)\=\(soft\|loud\)\>" display
+syn match   cssAuralAttr contained "\<\%(x-\)\=\(soft\|loud\)\>" display
 syn keyword cssAuralAttr contained silent
 syn match   cssAuralAttr contained "\<spell-out\>" display
 syn keyword cssAuralAttr contained non mix
-syn match   cssAuralAttr contained "\<\(left\|right\)-side\>" display
-syn match   cssAuralAttr contained "\<\(far\|center\)-\(left\|center\|right\)\>" display
+syn match   cssAuralAttr contained "\<\%(left\|right\)-side\>" display
+syn match   cssAuralAttr contained "\<\%(far\|center\)-\%(left\|center\|right\)\>" display
 syn keyword cssAuralAttr contained leftwards rightwards behind
 syn keyword cssAuralAttr contained below level above higher
-syn match   cssAuralAttr contained "\<\(x-\)\=\(slow\|fast\)\>" display
+syn match   cssAuralAttr contained "\<\%(x-\)\=\(slow\|fast\)\>" display
 syn keyword cssAuralAttr contained faster slower
 syn keyword cssAuralAttr contained male female child code digits continuous
 syn match   cssAuralAttr contained "\<lower\>" display
@@ -204,88 +196,92 @@ syn match   cssAuralAttr contained "\<lower\>" display
 syn match   cssTableProp contained "\<\(caption-side\|table-layout\|border-collapse\|border-spacing\|empty-cells\|speak-header\)\>\(\s*:\)\@=" display
 syn keyword cssTableAttr contained fixed collapse separate show hide once always
 
-" CSS3
+"  CSS3
 
-syn match   cssUIProp contained "\(-\(moz\)-\|\)resize\>\(\s*:\)\@=" display
-
-syn match   cssBoxProp contained "\(-\(moz\|webkit\)-\|\)column-\(width\|rule\(-\(color\|width\|style\)\)\=\|gap\|count\|span\)\>\(\s*:\)\@=" display
+"   Multi-column layouts
+syn match   cssBoxProp contained "\(-\(moz\|webkit\)-\|\)column-\%(width\|rule\%(-\%(color\|width\|style\)\)\=\|gap\|count\|span\)\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\(-moz-\)\=column-fill\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\(-\(moz\|webkit\)-\|\)columns\>\(\s*:\)\@=" display
 
-syn match   cssColorProp contained "\<opacity\>\(\s*:\)\@=" display
+syn match   cssRenderProp contained "\(-\(webkit\)-\|\(-\(moz\|o\)-\)\@<!\)animation\%(-\%(delay\|direction\|duration\|fill-mode\|iteration-count\|name\|play-state\|timing-function\)\)\=\>\(\s*:\)\@=" display
+syn match   cssRenderProp contained "\(-\(webkit\)-\|\(-\(moz\|o\)-\)\@<!\)transition\%(-\%(delay\|duration\|property\|timing-function\)\)\=\>\(\s*:\)\@=" display
+syn match   cssRenderProp contained "\(-\(webkit\)-\|\(-\(moz\|ms\|o\)-\)\@<!\)transform\%(-\%(origin\|style\)\)\=\>\(\s*:\)\@=" display
 
-syn match   cssGeneratedContentProp contained "\<background\(-\(origin\|clip\|repeat\|color\|image\|attachment\|position\|size\)\)\=\>\(\s*:\)\@=" display
-
-syn match   cssBoxProp contained "\(-\(webkit\|o\)-\|\)\(-moz-\)\@<!border-image\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<border-radius\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<border-\(bottom\|top\)-\(left\|right\)-radius\>\(\s*:\)\@=" display
-
-syn match   cssTextProp contained "\<text-\(justify\|\outline\|overflow\|warp\|indent\)\>\(\s*:\)\@=" display
-syn match   cssRenderProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!transform\(-\(origin\|style\)\)\=\>\(\s*:\)\@=" display
-syn match   cssTextProp contained "\<word-\(break\|\wrap\)\>\(\s*:\)\@=" display
-syn match   cssRenderProp contained "\(-\(webkit\)-\|\)\(-\(moz\|o\)-\)\@<!transition\(-\(delay\|duration\|property\|timing-function\)\)\=\>\(\s*:\)\@=" display
-
-syn match   cssRenderAttr contained "\<ease\(-\(in-out\|out\|in\)\)\=\>" display
-syn match   cssCommonAttr contained "\(-moz-\)\@<!initial\>" display
-syn keyword cssRenderAttr contained alternate infinite linear paused running
-syn keyword cssRenderAttr contained backwards both flat forwards preserve-3d
-syn keyword cssBoxAttr contained content-box border-box padding-box manual
-syn keyword cssBoxAttr contained balance horizontal reverse round space vertical
-syn keyword cssBoxAttr contained block-axis inline-axis ignore stretch stretch-to-fit
-syn keyword cssTextAttr contained ellipsis clip break-word break-all keep-all start end
+syn keyword cssBoxAttr contained border-box content-box padding-box
+syn keyword cssBoxAttr contained balance horizontal round space vertical
+syn keyword cssBoxAttr contained ignore stretch stretch-to-fit
+syn keyword cssTextAttr contained ellipsis clip break-word break-all keep-all
+syn keyword cssTextAttr contained manual wavy
+syn keyword cssTextAttr contained start end match-parent
+syn match   cssRenderAttr contained "\<\(ease\%(-\%(in\|out\|in-out\)\)\=\|linear\|step-\%(start\|end\|stop\)\)\>" display
+syn match   cssRenderAttr contained "\<\(alternate\%(-reverse\)\=\|reverse\)\>" display
+syn keyword cssRenderAttr contained forwards backwards
+syn keyword cssRenderAttr contained infinite paused running
+syn keyword cssRenderAttr contained all
+syn keyword cssRenderAttr contained flat preserve-3d
 syn case match
-syn match cssRenderAttr contained "\<\%(optimize\%(Legibility\|Quality\|Speed\)\|geometricPrecision\)\>" display
+syn match   cssRenderAttr contained "\<\(optimize\%(Legibility\|Quality\|Speed\)\|geometricPrecision\)\>" display
 syn case ignore
-syn keyword cssGeneratedContentAttr contained bounding-box each-box cover contain
-syn match   cssRenderAttr contained "\<\(flex\|grid\|inline-\(block\|flex\|grid\|table\)\|list-item\|run-in\)\>" display
+syn match   cssRenderAttr contained "\<\(flex\|grid\|inline-\%(block\|flex\|grid\|table\)\|list-item\|run-in\)\>" display
+syn match   cssCommonAttr contained "\(-moz-\)\@<!initial\>" display
+syn keyword cssGeneratedContentAttr contained bounding-box continuous each-box
+syn keyword cssGeneratedContentAttr contained contain cover fill
 
-syn match   cssBoxProp contained "\<marquee\(-\(direction\|play-count\|speed\|style\)\)\=\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<overflow-\(x\|y\|style\)\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\(-webkit-\)\=\(-moz-\)\@<!perspective\(-origin\)\=\>\(\s*:\)\@=" display
-syn match   cssRenderProp contained "\(-\(webkit\)-\|\)\(-\(moz\|o\)-\)\@<!animation\(-\(fill-mode\|direction\|name\|duration\|timing-function\|delay\|iteration-cout\|play-state\)\)\=\>\(\s*:\)\@=" display
 syn match   cssUIProp contained "\(-\(moz\|webkit\)-\|\)appearance\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\(-\(moz\|webkit\)-\|\)box-\(align\|direction\|flex\|ordinal-group\|orient\|pack\|sizing\)\>\(\s*:\)\@=" display
+syn match   cssUIProp contained "\<pointer-events\>\(\s*:\)\@=" display
+syn match   cssUIProp contained "\<-moz-outline-radius\%(-\%(bottomleft\|bottomright\|topleft\|topright\)\)\=\>\(\s*:\)\@=" display
+syn match   cssUIProp contained "\<outline\%(-\%(width\|style\|offset\|color\)\)\=\>\(\s*:\)\@=" display
+syn match   cssUIProp contained "\(-moz-\)\=user-\%(focus\|input\|modify\)\>\(\s*:\)\@=" display
+syn match   cssUIProp contained "\<user-select\>\(\s*:\)\@=" display
+syn match   cssUIProp contained "\(-\(moz\)-\|\)resize\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-webkit-\)\=\(-moz-\)\@<!perspective\%(-origin\)\=\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-moz-\|\(-webkit-\)\@<!\)box-sizing\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<-moz-box-ordinal-group\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<box-shadow\>\(\s*:\)\@=" display
 
-syn match   cssBoxProp contained "\<-moz-border-\(\(top\|right\|bottom\|left\)-colors\)\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<border-image-\(source\|width\|repeat\|outset\|slice\)\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\(-moz-\)\=\(\(margin\|padding\|border\)-\(end\|start\)\)\>\(\s*:\)\@=" display
-syn match   cssTextProp contained "\(-moz-\)\=text-\(align-last\|blink\)\>\(\s*:\)\@=" display
-syn match   cssTextProp contained "\(-moz-\)\=text-decoration-\(line\|color\|style\)\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\(-\(moz\|webkit\|ms\)-\|\)hyphens\>\(\s*:\)\@=" display
-syn match   cssFontProp contained "\(-\(moz\|webkit\)-\|\)font-feature-settings\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<border-radius\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<border-\%(bottom\|top\)-\%(left\|right\)-radius\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<-moz-border-\%(\%(top\|right\|bottom\|left\)-colors\)\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-\(webkit\|o\)-\|\(-moz-\)\@<!\)border-image\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<border-image-\%(source\|width\|repeat\|outset\|slice\)\>\(\s*:\)\@=" display
+
+syn match   cssBoxProp contained "\(-\(moz\|webkit\)-\)\=\%(margin\|padding\|border\)-\%(end\|start\)\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\<-moz-stack-sizing\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\(-webkit-\)\=\(-moz-\)\@<!backface-visibility\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\(-moz-\)\=binding\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<-moz-orient\>\(\s*:\)\@=" display
-syn match   cssUIProp contained "\<-moz-outline-radius\(-\(bottomleft\|bottomright\|topleft\|topright\)\)\=\>\(\s*:\)\@=" display
-syn match   cssUIProp contained "\<outline\(-\(width\|style\|offset\|color\)\)\=\>\(\s*:\)\@=" display
-syn match   cssUIProp contained "\(-moz-\)\=user-\(focus\|input\|modify\)\>\(\s*:\)\@=" display
-syn match   cssUIProp contained "\<user-select\>\(\s*:\)\@=" display
-syn match   cssRenderProp contained "\(-\(webkit\|ms\)-\|\)\(-\(moz\|o\)-\)\@<!filter\>\(\s*:\)\@=" display
-syn match   cssGeneratedContentProp contained "\<-moz-background-inline-policy\>\(\s*:\)\@=" display
-syn match   cssGeneratedContentProp contained "\<-moz-image-region\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<mask\>\(\s*:\)\@=" display
 syn match   cssBoxProp contained "\<clip-path\>\(\s*:\)\@=" display
-syn match   cssUIProp contained "\<pointer-events\>\(\s*:\)\@=" display
-syn match   cssBoxProp contained "\<-moz-stack-sizing\>\(\s*:\)\@=" display
+syn match   cssFontProp contained "\(-\(moz\|webkit\)-\|\)font-feature-settings\>\(\s*:\)\@=" display
+syn match   cssTextProp contained "\(-\(moz\|webkit\|ms\)-\|\)hyphens\>\(\s*:\)\@=" display
+syn match   cssTextProp contained "\(-moz-\)\=text-\%(align-last\|blink\)\>\(\s*:\)\@=" display
+syn match   cssTextProp contained "\(-moz-\)\=text-decoration-\%(line\|color\|style\)\>\(\s*:\)\@=" display
+syn match   cssTextProp contained "\<text-\%(justify\|\outline\|overflow\|warp\|indent\)\>\(\s*:\)\@=" display
+syn match   cssTextProp contained "\<word-\%(break\|\wrap\)\>\(\s*:\)\@=" display
+syn match   cssRenderProp contained "\<opacity\>\(\s*:\)\@=" display
 syn match   cssRenderProp contained "\<image-rendering\>\(\s*:\)\@=" display
+syn match   cssRenderProp contained "\(-\(webkit\)-\|\(-\(moz\|ms\|o\)-\)\@<!\)filter\>\(\s*:\)\@=" display
+syn match   cssGeneratedContentProp contained "\<background\%(-\%(origin\|clip\|repeat\|color\|image\|attachment\|position\|size\)\)\=\>\(\s*:\)\@=" display
+syn match   cssGeneratedContentProp contained "\<-moz-background-inline-policy\>\(\s*:\)\@=" display
+syn match   cssGeneratedContentProp contained "\<-moz-image-region\>\(\s*:\)\@=" display
+
 syn match   cssTextProp contained "\<ime-mode\>" display
 syn keyword cssTextAttr contained active inactive disabled
 
-" Flexible Box
-syn match   cssFlexboxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!align-\(content\|items\|self\)\>\(\s*:\)\@=" display
-syn match   cssFlexboxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!flex\(-\(basis\|direction\|flow\|grow\|shrink\|wrap\)\)\=\>\(\s*:\)\@=" display
-syn match   cssFlexboxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!justify-content\>\(\s*:\)\@=" display
-syn match   cssFlexboxProp contained "\(-\(webkit\)-\|\)\(-\(moz\|ms\|o\)-\)\@<!order\>\(\s*:\)\@=" display
-syn match   cssFlexboxAttr contained "\<\(\(flex-\(start\|end\)\)\|\(row\|column\|wrap\)\(-reverse\)\=\|space-\(between\|around\)\)\>" display
+"   Flexible Box
+syn match   cssBoxProp contained "\(-\(webkit\)-\|\(-\(moz\|ms\|o\)-\)\@<!\)align-\%(content\|items\|self\)\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-\(webkit\)-\|\(-\(moz\|ms\|o\)-\)\@<!\)flex\%(-\%(basis\|direction\|flow\|grow\|shrink\|wrap\)\)\=\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-\(webkit\)-\|\(-\(moz\|ms\|o\)-\)\@<!\)justify-content\>\(\s*:\)\@=" display
+syn match   cssBoxProp contained "\(-\(webkit\)-\|\(-\(moz\|ms\|o\)-\)\@<!\)order\>\(\s*:\)\@=" display
+syn match   cssBoxAttr contained "\<\(flex-\%(start\|end\)\|\(row\|column\|wrap\)\%(-reverse\)\=\|space-\%(between\|around\)\)\>" display
 
-"syn match   cssProperty transparent contained "\<\(-\a\+-\)\=\a\+\(-\a\+\)\{0,3\}\>\(\s*:\)\@=" contains=css.\+Prop nextgroup=cssAttribute skipwhite
-"syn region  cssAttribute transparent contained matchgroup=cssPropColon start=":" skip="/\*.*\*/" matchgroup=NONE end=";\|[^}]\(}\)\@=" contains=cssComment,cssError,cssImportant,cssStringQ\+,cssUnicodeEscape,cssURL,cssFunction,cssColor,cssValue.\+,css.\+Attr
+"syn match   cssProperty transparent contained "\<\(-\a\+-\)\=\a\+\(-\a\+\)\{0,3\}\>\(\s*:\)\@=" contains=cssFontDescriptorProp,css.\+Prop nextgroup=cssAttribute skipwhite
+"syn region  cssAttribute transparent contained matchgroup=cssPropColon start=":" end="\ze[;}]" contains=cssComment,cssError,cssImportant,cssStringQ\+,cssUnicodeEscape,cssURL,cssFunction,cssColor,cssValue.\+,cssFontDescriptorAttr,css.\+Attr
 
 syn match   cssBraces contained "[{}]"
 syn match   cssError contained "{@<>"
-"syn region cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=cssProperty,cssComment,,cssError
-syn region  cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssError,cssStringQ,cssStringQQ,@cssFunctions,cssUnicodeEscape
+"syn region  cssDefinition fold transparent matchgroup=cssBraces start='{' end='}' contains=cssProperty,cssComment,,cssError
+syn region  cssDefinition fold transparent matchgroup=cssBraces start='{' end='}' contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssError,cssStringQ,cssStringQQ,cssFunction,cssUnicodeEscape
 syn match   cssBraceError "}"
 
 " At-rule Group
@@ -294,7 +290,7 @@ syn match   cssBraceError "}"
 syn match   cssMedia "@media\>" nextgroup=cssMediaType,cssMediaOperators,cssMediaBrackets skipwhite
 syn keyword cssMediaType contained screen print aural braile embosed handheld projection tty tv all nextgroup=cssMediaComma,cssMediaBlock,cssMediaAnd skipwhite
 syn match   cssMediaComma contained "," nextgroup=cssMediaType skipwhite
-syn region  cssMediaBlock transparent contained matchgroup=cssBraces start='{' end='}' contains=cssDocument,cssPage,cssFontDescriptor,cssKeyFrame,cssSupports,cssTagName,cssError,cssComment,cssDefinition,cssUnicodeEscape,cssIdentifier,cssAttributeSelector,@cssPseudo,cssSelectorOp,cssClassName
+syn region  cssMediaBlock fold transparent contained matchgroup=cssBraces start='{' end='}' contains=cssDocument,cssPage,cssFontDescriptor,cssKeyFrame,cssSupports,cssTagName,cssError,cssComment,cssDefinition,cssUnicodeEscape,cssIdentifier,cssAttributeSelector,@cssPseudo,cssSelectorOp,cssClassName
 syn match   cssMediaAnd "\s\zsand\ze\s" contained nextgroup=cssMediaBrackets skipwhite
 syn match   cssMediaOperators "\<\(not\|only\)\>" contained nextgroup=cssMediaType skipwhite
 syn match   cssMediaFeatures contained "\<\(\(\(min\|max\)-\)\=\(\(\(device-\)\=\(height\|width\|aspect-ratio\)\)\|color\(-index\)\=\|monochrome\|resolution\)\|grid\|scan\|orientation\)\>" display nextgroup=cssMediaColon skipwhite
@@ -308,15 +304,15 @@ syn region  cssDomain contained matchgroup=cssFunctionName start="\<domain\s*(" 
 syn region  cssRegexp contained matchgroup=cssFunctionName start="\<regexp\s*(\ze['"]" end="['"]\zs)" contains=cssRegexpError nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
 syn match   cssDocumentComma contained "," nextgroup=cssDUrl,cssURLPrefix,cssDomain,cssRegexp skipwhite skipnl
 syn region  cssDUrl contained matchgroup=cssFunctionName start="\<url\s*(" end=")" nextgroup=cssDocumentComma,cssDocumentBlock oneline keepend skipwhite
-syn region  cssDocumentBlock contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssSupports,cssNestedSelector
-syn match   cssNestedSelector transparent contained "[a-zA-Z*#.:][^{]*" contains=@cssPseudo,cssComment,cssError,cssAttributeSelector,cssSelectorOp,cssUnicodeEscape,cssTagName,cssClassName,cssIdentifier nextgroup=cssDefinition skipwhite skipnl skipempty
+syn region  cssDocumentBlock fold contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssSupports,cssNestedSelector
+syn match   cssNestedSelector transparent contained "[a-zA-Z*#.:\\][^{]*" contains=@cssPseudo,cssComment,cssError,cssAttributeSelector,cssSelectorOp,cssUnicodeEscape,cssTagName,cssClassName,cssIdentifier nextgroup=cssDefinition skipwhite skipnl skipempty
 syn match   cssRegexpError contained +\(\<regexp(\)\@<=[^'"].*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=['][^']*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\(\<regexp(\)\@<=["][^"]*\()\%(,\s*\a\+(\|\s*{\(\s*\d\)\@!\)\)\@=\|\\\@<!\\[^\\]+ display
 
 " Incomplete
-syn region  cssSupports transparent matchgroup=cssSupports start="^\s*\zs@supports\>" end="[^{]\ze{"he=e-1 contains=cssComment,cssError,cssSupportsOperators,cssSupportsBrackets nextgroup=cssSupportsBlock
-syn match   cssSupportsOperators contained "\%(\<not\|\s\zs\%(and\|or\)\)\>\ze\%(\s\|$\)"
+syn region  cssSupports transparent matchgroup=cssSupports start="^\s*\zs@supports\>" end="\ze{" contains=cssSupportsOperators,cssSupportsBrackets nextgroup=cssSupportsBlock
+syn match   cssSupportsOperators contained "\(\<not\|\s\zs\%(and\|or\)\)\>\ze\%(\s\|$\)"
 syn region  cssSupportsBrackets transparent contained start="(" end=")" contains=css.*Prop,css.*Attr,cssValue.*,cssSupportsOperators,cssSupportsBrackets
-syn region  cssSupportsBlock transparent contained transparent matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssDocument,cssNestedSelector
+syn region  cssSupportsBlock fold transparent contained matchgroup=cssBraces start='{' end='}' contains=cssError,cssComment,cssPage,cssMedia,cssFontDescriptor,cssKeyFrame,cssDocument,cssNestedSelector
 
 "     Conditional Group Rules End
 
@@ -324,11 +320,11 @@ syn match   cssPage "@page\>" nextgroup=cssPseudoClassId,cssDefinition
 
 syn match   cssKeyFrame "@\(-webkit-\)\=\(-\(moz\|o\)-\)\@<!keyframes\>" nextgroup=cssKeyFrameID skipwhite skipnl
 syn match   cssKeyFrameID contained "\<[a-zA-Z0-9_-]\+\>" nextgroup=cssKeyFrameBlock skipwhite skipnl
-syn region  cssKeyFrameBlock transparent contained matchgroup=cssBraces start="{" end="}" contains=cssError,cssComment,cssKeyFrameTime
+syn region  cssKeyFrameBlock fold transparent contained matchgroup=cssBraces start="{" end="}" contains=cssError,cssComment,cssKeyFrameTime
 syn match   cssKeyFrameTime contained "\<\(from\|to\)\>\|\d\+%" nextgroup=cssDefinition skipwhite skipnl
 
 syn match   cssFontDescriptor "@font-face\>" nextgroup=cssFontDescriptorBlock skipwhite skipnl
-syn region  cssFontDescriptorBlock contained transparent matchgroup=cssBraces start="{" end="}" contains=cssComment,cssError,cssUnicodeEscape,cssFontProp,cssFontAttr,cssCommonAttr,cssStringQ,cssStringQQ,cssFontDescriptorProp,cssValue.*,cssFontDescriptorFunction,cssUnicodeRange,cssFontDescriptorAttr,cssImportant
+syn region  cssFontDescriptorBlock fold contained transparent matchgroup=cssBraces start="{" end="}" contains=cssComment,cssError,cssUnicodeEscape,cssFontProp,cssFontAttr,cssCommonAttr,cssStringQ,cssStringQQ,cssFontDescriptorProp,cssValue.*,cssFontDescriptorFunction,cssUnicodeRange,cssFontDescriptorAttr,cssImportant
 syn match   cssFontDescriptorProp contained "\<\(unicode-range\|unit-per-em\|panose-1\|cap-height\|x-height\|definition-src\)\>\(\s*:\)\@=" display
 syn keyword cssFontDescriptorProp contained src stemv stemh slope ascent descent widths bbox baseline centerline mathline topline
 syn keyword cssFontDescriptorAttr contained all
@@ -354,11 +350,11 @@ syn match   cssPseudoElement "\(:\{1,2\}\(before\|after\|first-letter\|first-lin
 syn region  cssPseudoClassLang matchgroup=cssPseudoClassId start=":lang(" end=")" oneline
 "  PseudoClass expansion list
 syn match   cssPseudoClassId ":\(first\|last\|only\)-\(of-type\|child\)\>" display
-syn match   cssPseudoClassId ":\(nth\|nth-last\)-\(of-type\|child\)\>\((\(-\=\(\d\+n\=\|n\)\(+\d\+\)\=\|odd\|even\))\)\@=" display nextgroup=cssBracketsElement
+syn match   cssPseudoClassId ":\(nth\|nth-last\)-\(of-type\|child\)\>\((\( \=\([-+]\=\(\d\+n\=\|n\) \=\([-+] \=\d\+ \=\)\=\|even \=\|odd \=\)\))\)\@=" display nextgroup=cssBracketsElement
 syn match   cssPseudoClassId ":\(root\|empty\|target\|enabled\|disabled\|checked\|default\|indeterminate\|invalid\|optional\|required\|valid\)\>" display
 syn match   cssPseudoClassId ":\(-\(moz\|webkit\)-\|\)any\>" display
 syn region  cssPseudoClassNot matchgroup=cssPseudoClassId start=":not(" end=")" contains=cssAttributeSelector,cssStringQQ oneline
-syn match   cssBracketsElement contained "\((\(-\=\(\d\+n\=\|n\)\(+\d\+\)\=\|odd\|even\))\)"hs=s+1,he=e-1 display
+syn match   cssBracketsElement contained "(\( \=\%([-+]\=\%(\d\+n\=\|n\) \=\%([-+] \=\d\+ \=\)\=\|\%(even\|odd\) \=\)\))"hs=s+1,he=e-1 display
 syn cluster cssPseudo contains=cssPseudoElement,cssPseudoClassId,cssPseudoClassNot,cssPseudoClassLang
 
 syn region  cssComment start="/\*" end="\*/" contains=@Spell
@@ -371,31 +367,32 @@ syn region  cssStringQ start=+'+ skip=+\\\\\|\\'+ end=+'+ contains=cssUnicodeEsc
 syn match   cssClassName "\.[A-Za-z][A-Za-z0-9_-]*" display
 
 
-if main_syntax == "css"
-
-" Syntax Sync
-  syn sync minlines=10
-
-" Set the keyword identifier
-"  Added '-' symbol and excluded '#' symbol
-  setlocal iskeyword+=-,^#
+if main_syntax == 'css'
+  " Syntax sync options
+  if exists("css_default_sync") && g:css_default_sync == 1
+    syn sync maxlines=200
+  elseif !exists("css_default_sync") || g:css_default_sync == 0
+    syn sync minlines=2000
+  endif
+  " Define the keyword identifier
+  "  Added '-' symbol
+  setlocal iskeyword+=-
+endif
 
 " Beautify CSS command
-  command! -buffer CSSBeautify call s:BeautifyTheCSS()
-  function! s:BeautifyTheCSS()
-    execute "normal mz"
-    %s/\%(\(\S\)\@<=\|\s\{2,\}\|\s*\%(\n\s*\)\+\)\({\(\s*\d\)\@!\)\@=/ /ge|
-      \ %s/{\s*\(\s*\(\n\|\d\)\)\@!/{/ge|
-      \ %s/\(\({\(\s*\d*\s*,\)\=\s*\d*\)\@<![^;{}\t ]\)\@<=\(\s*\(\n\s*\)*}\)\@=/;/ge|
-      \ %s/\(}\|;\)\@<=\s*\%(\%(\n\s*\)\+\(\s\)\@<=\)\=}/}/ge|
-      \ %s/\(;\)\@<=\([^:]\+:\)\@=//ge|
-      \ %s/\(\(\d\s*\)\@<!}\)\@<=\s*\([A-Za-z0-9#*.@:][^{]*{\)\@=//ge|
-      \ %s/\s\+$//e|
-      \ %s/\(^\s*[a-z-]\+\s*:\)\@<=\(\(\s\)\@!\|\s\{2,\}\)\|\(^\s*[a-z-]\+\s*:.*\S\)\@<=\(\s\{2,\}\)\=\(!\s*important\s*;$\|\(!\s*important\s*\)\@<!;$\)\@=/ /ge
-    execute "normal `z"
-  endfunction
-
-endif
+command! -buffer CSSBeautify call s:BeautifyTheCSS()
+function! s:BeautifyTheCSS()
+  execute "normal mz"
+  %s/\%(\S\ze\|\s\{2,\}\|\s*\%(\n\s*\)\+\)\({\(\d\+\(,\d*\)\=}\)\@!\)\@=/ /ge|
+    \ %s/{\s*\(\s*\n\|\d\+\(,\d*\)\=}\)\@!/{\r/ge|
+    \ %s/\(\({\(\d*,\)\=\d*\)\@<![^;{}\t ]\)\@<=\(\s*\(\n\s*\)*}\)\@=/;/ge|
+    \ %s/\(}\|;\)\@<=\s*\%(\%(\n\s*\)\+\(\s\)\@<=\)\=}/\r}/ge|
+    \ %s/;\([^:;]\+:\)\@=/;\r/ge|
+    \ %s/\(\d\)\@<!}\s*\([A-Za-z0-9#*.@:][^{]*{\)\@=/}\r/ge|
+    \ %s/\s\+$//e|
+    \ %s/\(^\s*[a-zA-Z-]\+\s*:\)\@<=\(\(\s\)\@!\|\s\{2,\}\)\|\(^\s*[a-zA-Z-]\+\s*:.*\S\)\@<=\(\s\{2,\}\)\=\(!\s*important\s*;$\|\(!\s*important\s*\)\@<!;$\)\@=/ /ge
+  execute "normal `z"
+endfunction
 
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
@@ -416,7 +413,6 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssColorProp StorageClass
   HiLink cssTextProp StorageClass
   HiLink cssBoxProp StorageClass
-  HiLink cssRenderProp StorageClass
   HiLink cssAuralProp StorageClass
   HiLink cssRenderProp StorageClass
   HiLink cssGeneratedContentProp StorageClass
@@ -435,7 +431,7 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssUIAttr Type
   HiLink cssCommonAttr Type
   HiLink cssPseudoClassId PreProc
-  HiLink cssPseudoElement cssPseudoClassId
+  HiLink cssPseudoElement PreProc
   HiLink cssPseudoClassLang Constant
   HiLink cssValueLength Number
   HiLink cssValuePercentage Number
@@ -448,12 +444,11 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssFunctionName Function
   HiLink cssColor Constant
   HiLink cssIdentifier Function
-  HiLink cssInclude Include
   HiLink cssImportant Special
   HiLink cssBraces Function
   HiLink cssBraceError Error
   HiLink cssError Error
-  HiLink cssInclude Include
+  HiLink cssInclude Statement
   HiLink cssUnicodeEscape Special
   HiLink cssStringQQ String
   HiLink cssStringQ String
@@ -478,8 +473,6 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssRegexp String
   HiLink cssRegexpError Error
   HiLink cssCharset Statement
-  HiLink cssFlexboxProp StorageClass
-  HiLink cssFlexboxAttr Type
   HiLink cssValueResolution Number
   HiLink cssPage Statement
   HiLink cssNameSpace Statement

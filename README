@@ -1,17 +1,30 @@
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=4089
 
-The script is based on the official css syntax file, you can find it  in here :http://fleiner.com/vim/syntax/css.vim
 
-CSS3 syntax highlighting support. Include many of CSS3 Property,Attribute,Selector, support for the prefix " -moz-,-webkit- ,-o-,-ms- ", and complete the At-rule group, see : https://developer.mozilla.org/en-US/docs/CSS/At-rule . Added beautify CSS file function,  use the :CSSBeautify command.
+Introduction
+  
+The script is based on the original css syntax file : http://fleiner.com/vim/syntax/css.vim ,
+and support for CSS3 syntax highlighting .
+This script include many of CSS3 Property,Attribute and Selector ,
+and the prefix " -moz-,-webkit- ,-o-,-ms- " support ,
+and complete the At-rule groups , see the https://developer.mozilla.org/en-US/docs/CSS/At-rule .
+Also , it support the beautify CSS feature , you can use it to by the :CSSBeautify command .
 
+Options
 
-For of the CSSBeautify command :
+As a optional, "css_default_sync" argument can be used for switch the syntax synchronization settings.
+By default, to use "syn sync minlines=2000" as setting of synchronization. If you have a slow machine,
+so, you can use the following option(to use "syn sync maxlines=200"):
+
+let g:css_default_sync == 1
+
+For the CSSBeautify command :
 
 /* Original */
 
-style
+style:
 
-*{ width:680px ;
+body{ width:680px ;
 background-color:#FFF;
 box-shadow: -1px 1px 3px #DDD;
 padding: 10px
@@ -24,9 +37,9 @@ a:nth-of-type(2n)
 
 /* After the command execution */
 
-style
+style:
 
-* {
+body {
 width: 680px ;
 background-color: #FFF ;
 box-shadow: -1px 1px 3px #DDD ;
@@ -39,14 +52,14 @@ background-color: #FFF !important;
 border-radius: 0px !important;
 }
 
-
 Screenshots: 
 http://i.imgur.com/HjD48SP.jpg
 http://i.imgur.com/MBzDyhm.jpg
 http://i.imgur.com/HR2nYl2.jpg
 
 
+Github repositories:
+First - https://github.com/fremff/vim-css-syntax
+Second - https://github.com/vim-scripts/css3-mod
 
-github:
-https://github.com/fremff/vim-css-syntax
 
